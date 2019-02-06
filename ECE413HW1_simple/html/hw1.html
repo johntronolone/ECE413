@@ -1,0 +1,600 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>John Tronolone</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-02-05"><meta name="DC.source" content="hw1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>John Tronolone</h1><!--introduction--><p>Music and Engineering Homework 1 Prof. Hoerning February 5, 2019</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Setup and Constants</a></li><li><a href="#2">Question 1 - Tables</a></li><li><a href="#3">Question 2 - scales</a></li><li><a href="#4">Question 3 - chords</a></li><li><a href="#5">Question 4 - plots</a></li><li><a href="#6">Question 5 - discussion</a></li></ul></div><h2 id="1">Setup and Constants</h2><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">% Setup</span>
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+close <span class="string">all</span>
+clear <span class="string">functions</span>
+clear <span class="string">variables</span>
+dbstop <span class="string">if</span> <span class="string">error</span>
+
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">% Constants</span>
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+constants.fs=44100;                 <span class="comment">% Sampling rate in samples per second</span>
+constants.durationScale=0.5;        <span class="comment">% Duration of notes in a scale</span>
+constants.durationChord=3;          <span class="comment">% Duration of chords</span>
+</pre><h2 id="2">Question 1 - Tables</h2><pre class="codeinput"><span class="comment">% (a)</span>
+
+<span class="comment">% initialize just intonation frequency table</span>
+just_freq_table = zeros(13, 12); <span class="comment">% 13 notes for each key, 12 keys</span>
+C4 = 264; <span class="comment">% Hz</span>
+just_freq_table(1,1) = C4;
+
+<span class="comment">% just intonation frequency ratios</span>
+just_ratios = [1; 16/15; 9/8; 6/5; 5/4; 4/3; 25/18; 3/2; 8/5; 5/3; 7/4; 15/8; 2];
+inverse_ratios = 1./just_ratios;
+
+<span class="comment">% populate C scale frequencies</span>
+just_freq_table(:,1) = C4 * just_ratios;
+
+<span class="comment">% populate diagonals, i.e. assign Db4 from C scale to Db scale, etc.</span>
+n = 13;
+just_freq_table(1:n+1:end) = just_freq_table(1:12,1);
+
+<span class="comment">% populate rest of frequency table</span>
+<span class="keyword">for</span> ii = 2:12
+    just_freq_table(:, ii) = just_freq_table(ii,ii)*[flipud(inverse_ratios(2:ii)); just_ratios(1:(13-ii+1))]';
+<span class="keyword">end</span>
+
+<span class="comment">% (b)</span>
+
+<span class="comment">% equal temperament frequency ratios</span>
+equal_ratios = [1; 2^(1/12); 2^(2/12); 2^(3/12); 2^(4/12); 2^(5/12); 2^(6/12); 2^(7/12); 2^(8/12); 2^(9/12); 2^(10/12); 2^(11/12); 2];
+
+equal_freq_table = repmat(C4*equal_ratios, [1 12]);
+</pre><h2 id="3">Question 2 - scales</h2><pre class="codeinput">[soundMajorScaleJust]=create_scale(<span class="string">'Major'</span>,<span class="string">'Just'</span>,<span class="string">'A4'</span>,constants);
+[soundMajorScaleEqual]=create_scale(<span class="string">'Major'</span>,<span class="string">'Equal'</span>,<span class="string">'A4'</span>,constants);
+[soundMinorScaleJust]=create_scale(<span class="string">'Minor'</span>,<span class="string">'Just'</span>,<span class="string">'A4'</span>,constants);
+[soundMinorScaleEqual]=create_scale(<span class="string">'Minor'</span>,<span class="string">'Equal'</span>,<span class="string">'A4'</span>,constants);
+
+disp(<span class="string">'Playing the Just Tempered Major Scale'</span>);
+soundsc(soundMajorScaleJust,constants.fs);
+<span class="comment">%pause(9)</span>
+disp(<span class="string">'Playing the Equal Tempered Major Scale'</span>);
+soundsc(soundMajorScaleEqual,constants.fs);
+<span class="comment">%pause(9)</span>
+disp(<span class="string">'Playing the Just Tempered Minor Scale'</span>);
+soundsc(soundMinorScaleJust,constants.fs);
+<span class="comment">%pause(9)</span>
+disp(<span class="string">'Playing the Equal Tempered Minor Scale'</span>);
+soundsc(soundMinorScaleEqual,constants.fs);
+<span class="comment">%pause(9)</span>
+fprintf(<span class="string">'\n'</span>);
+
+<span class="comment">% EXTRA CREDIT - Melodic and Harmonic scales</span>
+[soundHarmScaleJust]=create_scale(<span class="string">'Harmonic'</span>,<span class="string">'Just'</span>,<span class="string">'A4'</span>,constants);
+[soundHarmScaleEqual]=-create_scale(<span class="string">'Harmonic'</span>,<span class="string">'Equal'</span>,<span class="string">'A4'</span>,constants);
+[soundMelScaleJust]=create_scale(<span class="string">'Melodic'</span>,<span class="string">'Just'</span>,<span class="string">'A4'</span>,constants);
+[soundMelScaleEqual]=create_scale(<span class="string">'Melodic'</span>,<span class="string">'Equal'</span>,<span class="string">'A4'</span>,constants);
+
+disp(<span class="string">'Playing the Just Tempered Harmonic Scale'</span>);
+soundsc(soundHarmScaleJust,constants.fs);
+<span class="comment">%pause(9)</span>
+disp(<span class="string">'Playing the Equal Tempered Harmonic Scale'</span>);
+soundsc(soundHarmScaleEqual,constants.fs);
+<span class="comment">%pause(9)</span>
+disp(<span class="string">'Playing the Just Tempered Melodic Scale'</span>);
+soundsc(soundMelScaleJust,constants.fs);
+<span class="comment">%pause(9)</span>
+disp(<span class="string">'Playing the Equal Tempered Melodic Scale'</span>);
+soundsc(soundMelScaleEqual,constants.fs);
+<span class="comment">%pause(9)</span>
+fprintf(<span class="string">'\n'</span>);
+</pre><pre class="codeoutput">Playing the Just Tempered Major Scale
+Playing the Equal Tempered Major Scale
+Playing the Just Tempered Minor Scale
+Playing the Equal Tempered Minor Scale
+
+Playing the Just Tempered Harmonic Scale
+Playing the Equal Tempered Harmonic Scale
+Playing the Just Tempered Melodic Scale
+Playing the Equal Tempered Melodic Scale
+
+</pre><h2 id="4">Question 3 - chords</h2><pre class="codeinput">fund = <span class="string">'A4'</span>; <span class="comment">% need this to determine wavelength for plots</span>
+chord_pause = 2; <span class="comment">% seconds</span>
+
+<span class="comment">% major and minor chords</span>
+[soundMajorChordJust]=create_chord(<span class="string">'Major'</span>,<span class="string">'Just'</span>,fund,constants);
+[soundMajorChordEqual]=create_chord(<span class="string">'Major'</span>,<span class="string">'Equal'</span>,fund,constants);
+[soundMinorChordJust]=create_chord(<span class="string">'Minor'</span>,<span class="string">'Just'</span>,fund,constants);
+[soundMinorChordEqual]=create_chord(<span class="string">'Minor'</span>,<span class="string">'Equal'</span>,fund,constants);
+
+disp(<span class="string">'Playing the Just Tempered Major Chord'</span>);
+soundsc(soundMajorChordJust,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Equal Tempered Major Chord'</span>);
+soundsc(soundMajorChordEqual,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Just Tempered Minor Chord'</span>);
+soundsc(soundMinorChordJust,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Equal Tempered Minor Chord'</span>);
+soundsc(soundMinorChordEqual,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+fprintf(<span class="string">'\n'</span>);
+
+<span class="comment">% assorted other chords</span>
+[soundPowerChordJust]=create_chord(<span class="string">'Power'</span>,<span class="string">'Just'</span>,fund,constants);
+[soundPowerChordEqual]=create_chord(<span class="string">'Power'</span>,<span class="string">'Equal'</span>,fund,constants);
+[soundSus2ChordJust]=create_chord(<span class="string">'Sus2'</span>,<span class="string">'Just'</span>,fund,constants);
+[soundSus2ChordEqual]=create_chord(<span class="string">'Sus2'</span>,<span class="string">'Equal'</span>,fund,constants);
+[soundSus4ChordJust]=create_chord(<span class="string">'Sus4'</span>,<span class="string">'Just'</span>,fund,constants);
+[soundSus4ChordEqual]=create_chord(<span class="string">'Sus4'</span>,<span class="string">'Equal'</span>,fund,constants);
+[soundDom7ChordJust]=create_chord(<span class="string">'Dom7'</span>,<span class="string">'Just'</span>,fund,constants);
+[soundDom7ChordEqual]=create_chord(<span class="string">'Dom7'</span>,<span class="string">'Equal'</span>,fund,constants);
+[soundMin7ChordJust]=create_chord(<span class="string">'Min7'</span>,<span class="string">'Just'</span>,fund,constants);
+[soundMin7ChordEqual]=create_chord(<span class="string">'Min7'</span>,<span class="string">'Equal'</span>,fund,constants);
+
+
+disp(<span class="string">'Playing the Just Tempered Power Chord'</span>);
+soundsc(soundPowerChordJust,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Equal Tempered Power Chord'</span>);
+soundsc(soundPowerChordEqual,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Just Tempered Sus2 Chord'</span>);
+soundsc(soundSus2ChordJust,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Equal Tempered Sus2 Chord'</span>);
+soundsc(soundSus2ChordEqual,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Just Tempered Sus4 Chord'</span>);
+soundsc(soundSus2ChordJust,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Equal Tempered Sus4 Chord'</span>);
+soundsc(soundSus2ChordEqual,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Just Tempered Dom7 Chord'</span>);
+soundsc(soundDom7ChordJust,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Equal Tempered Dom7 Chord'</span>);
+soundsc(soundDom7ChordEqual,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Just Tempered Min7 Chord'</span>);
+soundsc(soundMin7ChordJust,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+disp(<span class="string">'Playing the Equal Tempered Min7 Chord'</span>);
+soundsc(soundMin7ChordEqual,constants.fs);
+<span class="comment">%pause(chord_pause)</span>
+fprintf(<span class="string">'\n'</span>);
+</pre><pre class="codeoutput">Playing the Just Tempered Major Chord
+Playing the Equal Tempered Major Chord
+Playing the Just Tempered Minor Chord
+Playing the Equal Tempered Minor Chord
+
+Playing the Just Tempered Power Chord
+Playing the Equal Tempered Power Chord
+Playing the Just Tempered Sus2 Chord
+Playing the Equal Tempered Sus2 Chord
+Playing the Just Tempered Sus4 Chord
+Playing the Equal Tempered Sus4 Chord
+Playing the Just Tempered Dom7 Chord
+Playing the Equal Tempered Dom7 Chord
+Playing the Just Tempered Min7 Chord
+Playing the Equal Tempered Min7 Chord
+
+</pre><h2 id="5">Question 4 - plots</h2><pre class="codeinput"><span class="comment">% determine fundamental frequency A4 = 440 Hz</span>
+seconds = 1/440;
+one_wavelength_samples = floor(constants.fs*seconds);
+
+
+figure(1)
+subplot(2,2,1)
+plot((1:one_wavelength_samples)/constants.fs,soundMajorChordJust(1:one_wavelength_samples));
+title(<span class="string">'Major Chord Just Temperament: 1 wavelength'</span>)
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'x[t]'</span>)
+
+subplot(2,2,2)
+plot((1:one_wavelength_samples)/constants.fs,soundMajorChordEqual(1:one_wavelength_samples));
+title(<span class="string">'Major Chord Equal Temperament: 1 wavelength'</span>)
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'x[t]'</span>)
+
+subplot(2,2,3)
+plot((1:10*one_wavelength_samples)/constants.fs,soundMajorChordJust(1:10*one_wavelength_samples));
+title(<span class="string">'Major Chord Just Temperament: 10 wavelengths'</span>)
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'x[t]'</span>)
+
+subplot(2,2,4)
+plot((1:10*one_wavelength_samples)/constants.fs,soundMajorChordEqual(1:10*one_wavelength_samples));
+title(<span class="string">'Major Chord Equal Temperament: 10 wavelengths'</span>)
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'x[t]'</span>)
+
+
+figure(2)
+subplot(2,2,1)
+plot((1:one_wavelength_samples)/constants.fs,soundMinorChordJust(1:one_wavelength_samples));
+title(<span class="string">'Minor Chord Just Temperament: 1 wavelength'</span>)
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'x[t]'</span>)
+
+subplot(2,2,2)
+plot((1:one_wavelength_samples)/constants.fs,soundMinorChordEqual(1:one_wavelength_samples));
+title(<span class="string">'Minor Chord Equal Temperament: 1 wavelength'</span>)
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'x[t]'</span>)
+
+subplot(2,2,3)
+plot((1:10*one_wavelength_samples)/constants.fs,soundMinorChordJust(1:10*one_wavelength_samples));
+title(<span class="string">'Minor Chord Just Temperament: 10 wavelengths'</span>)
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'x[t]'</span>)
+
+subplot(2,2,4)
+plot((1:10*one_wavelength_samples)/constants.fs,soundMinorChordEqual(1:10*one_wavelength_samples));
+title(<span class="string">'Minor Chord Equal Temperament: 10 wavelengths'</span>)
+xlabel(<span class="string">'time [s]'</span>)
+ylabel(<span class="string">'x[t]'</span>)
+
+<span class="comment">% (d.) I cannot see a difference in the single wavelength plots, but the</span>
+<span class="comment">% tens of wavelengths plots show a difference in waveform for both the</span>
+<span class="comment">% major and minor comparisons</span>
+</pre><img vspace="5" hspace="5" src="hw1_01.png" alt=""> <img vspace="5" hspace="5" src="hw1_02.png" alt=""> <h2 id="6">Question 5 - discussion</h2><pre class="codeinput"><span class="comment">% (a.) I cannot hear any difference between the just and equal tempered</span>
+<span class="comment">% major scales. I believe this is because the frequencies are so close that</span>
+<span class="comment">% the small difference in frequency that I cannot hear. However, when I</span>
+<span class="comment">% play the scales simultaneously by calling soundsc without a pause, the</span>
+<span class="comment">% beats that occur on particular notes reveal that there are differences in</span>
+<span class="comment">% frequency.</span>
+
+<span class="comment">% (b.) I cannot tell which sounds better, but I would guess that the just</span>
+<span class="comment">% tempered scale would sound better since it is based on integer ratios</span>
+
+<span class="comment">% (c.) Likewise, I cannot hear any difference between the just and equal</span>
+<span class="comment">% tempered minor scales. Again, the difference is audible when calling</span>
+<span class="comment">% soundsc without a pause</span>
+
+<span class="comment">% (d.) Also cannot tell which sounds better, but again I would guess that</span>
+<span class="comment">% the just tempered scale would sound better.</span>
+
+<span class="comment">% (e.) The just tempered major chord does not have such pronounced beats as</span>
+<span class="comment">% the equal tempered major chord does when played.</span>
+
+<span class="comment">% (f.) The just tempered major chord sounds better due to less pronounced</span>
+<span class="comment">% beat frequencies.</span>
+
+<span class="comment">% (g.) I cannot hear any difference between the just and equal tempered</span>
+<span class="comment">% major chords.</span>
+
+<span class="comment">% (h.) My headphones are at school, I feel like I would have been able to</span>
+<span class="comment">% tell the difference between the just and equal tempered scales and chords</span>
+<span class="comment">% if I could hear it through something other than laptop speakers.</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% John Tronolone
+% Music and Engineering
+% Homework 1
+% Prof. Hoerning
+% February 5, 2019
+
+%% Setup and Constants
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+close all
+clear functions
+clear variables
+dbstop if error
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Constants
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+constants.fs=44100;                 % Sampling rate in samples per second
+constants.durationScale=0.5;        % Duration of notes in a scale
+constants.durationChord=3;          % Duration of chords
+
+
+%% Question 1 - Tables
+
+% (a)
+
+% initialize just intonation frequency table
+just_freq_table = zeros(13, 12); % 13 notes for each key, 12 keys
+C4 = 264; % Hz
+just_freq_table(1,1) = C4;
+
+% just intonation frequency ratios
+just_ratios = [1; 16/15; 9/8; 6/5; 5/4; 4/3; 25/18; 3/2; 8/5; 5/3; 7/4; 15/8; 2];
+inverse_ratios = 1./just_ratios;
+
+% populate C scale frequencies
+just_freq_table(:,1) = C4 * just_ratios;
+
+% populate diagonals, i.e. assign Db4 from C scale to Db scale, etc.
+n = 13;
+just_freq_table(1:n+1:end) = just_freq_table(1:12,1);
+
+% populate rest of frequency table
+for ii = 2:12
+    just_freq_table(:, ii) = just_freq_table(ii,ii)*[flipud(inverse_ratios(2:ii)); just_ratios(1:(13-ii+1))]';
+end
+
+% (b)
+
+% equal temperament frequency ratios
+equal_ratios = [1; 2^(1/12); 2^(2/12); 2^(3/12); 2^(4/12); 2^(5/12); 2^(6/12); 2^(7/12); 2^(8/12); 2^(9/12); 2^(10/12); 2^(11/12); 2];
+
+equal_freq_table = repmat(C4*equal_ratios, [1 12]);
+
+
+%% Question 2 - scales
+
+[soundMajorScaleJust]=create_scale('Major','Just','A4',constants);
+[soundMajorScaleEqual]=create_scale('Major','Equal','A4',constants);
+[soundMinorScaleJust]=create_scale('Minor','Just','A4',constants);
+[soundMinorScaleEqual]=create_scale('Minor','Equal','A4',constants);
+
+disp('Playing the Just Tempered Major Scale');
+soundsc(soundMajorScaleJust,constants.fs);
+%pause(9)
+disp('Playing the Equal Tempered Major Scale');
+soundsc(soundMajorScaleEqual,constants.fs);
+%pause(9)
+disp('Playing the Just Tempered Minor Scale');
+soundsc(soundMinorScaleJust,constants.fs);
+%pause(9)
+disp('Playing the Equal Tempered Minor Scale');
+soundsc(soundMinorScaleEqual,constants.fs);
+%pause(9)
+fprintf('\n');
+
+% EXTRA CREDIT - Melodic and Harmonic scales
+[soundHarmScaleJust]=create_scale('Harmonic','Just','A4',constants);
+[soundHarmScaleEqual]=-create_scale('Harmonic','Equal','A4',constants);
+[soundMelScaleJust]=create_scale('Melodic','Just','A4',constants);
+[soundMelScaleEqual]=create_scale('Melodic','Equal','A4',constants);
+
+disp('Playing the Just Tempered Harmonic Scale');
+soundsc(soundHarmScaleJust,constants.fs);
+%pause(9)
+disp('Playing the Equal Tempered Harmonic Scale');
+soundsc(soundHarmScaleEqual,constants.fs);
+%pause(9)
+disp('Playing the Just Tempered Melodic Scale');
+soundsc(soundMelScaleJust,constants.fs);
+%pause(9)
+disp('Playing the Equal Tempered Melodic Scale');
+soundsc(soundMelScaleEqual,constants.fs);
+%pause(9)
+fprintf('\n');
+
+
+%% Question 3 - chords
+
+fund = 'A4'; % need this to determine wavelength for plots
+chord_pause = 2; % seconds
+
+% major and minor chords
+[soundMajorChordJust]=create_chord('Major','Just',fund,constants);
+[soundMajorChordEqual]=create_chord('Major','Equal',fund,constants);
+[soundMinorChordJust]=create_chord('Minor','Just',fund,constants);
+[soundMinorChordEqual]=create_chord('Minor','Equal',fund,constants);
+
+disp('Playing the Just Tempered Major Chord');
+soundsc(soundMajorChordJust,constants.fs);
+%pause(chord_pause)
+disp('Playing the Equal Tempered Major Chord');
+soundsc(soundMajorChordEqual,constants.fs);
+%pause(chord_pause)
+disp('Playing the Just Tempered Minor Chord');
+soundsc(soundMinorChordJust,constants.fs);
+%pause(chord_pause)
+disp('Playing the Equal Tempered Minor Chord');
+soundsc(soundMinorChordEqual,constants.fs);
+%pause(chord_pause)
+fprintf('\n');
+
+% assorted other chords
+[soundPowerChordJust]=create_chord('Power','Just',fund,constants);
+[soundPowerChordEqual]=create_chord('Power','Equal',fund,constants);
+[soundSus2ChordJust]=create_chord('Sus2','Just',fund,constants);
+[soundSus2ChordEqual]=create_chord('Sus2','Equal',fund,constants);
+[soundSus4ChordJust]=create_chord('Sus4','Just',fund,constants);
+[soundSus4ChordEqual]=create_chord('Sus4','Equal',fund,constants);
+[soundDom7ChordJust]=create_chord('Dom7','Just',fund,constants);
+[soundDom7ChordEqual]=create_chord('Dom7','Equal',fund,constants);
+[soundMin7ChordJust]=create_chord('Min7','Just',fund,constants);
+[soundMin7ChordEqual]=create_chord('Min7','Equal',fund,constants);
+
+
+disp('Playing the Just Tempered Power Chord');
+soundsc(soundPowerChordJust,constants.fs);
+%pause(chord_pause)
+disp('Playing the Equal Tempered Power Chord');
+soundsc(soundPowerChordEqual,constants.fs);
+%pause(chord_pause)
+disp('Playing the Just Tempered Sus2 Chord');
+soundsc(soundSus2ChordJust,constants.fs);
+%pause(chord_pause)
+disp('Playing the Equal Tempered Sus2 Chord');
+soundsc(soundSus2ChordEqual,constants.fs);
+%pause(chord_pause)
+disp('Playing the Just Tempered Sus4 Chord');
+soundsc(soundSus2ChordJust,constants.fs);
+%pause(chord_pause)
+disp('Playing the Equal Tempered Sus4 Chord');
+soundsc(soundSus2ChordEqual,constants.fs);
+%pause(chord_pause)
+disp('Playing the Just Tempered Dom7 Chord');
+soundsc(soundDom7ChordJust,constants.fs);
+%pause(chord_pause)
+disp('Playing the Equal Tempered Dom7 Chord');
+soundsc(soundDom7ChordEqual,constants.fs);
+%pause(chord_pause)
+disp('Playing the Just Tempered Min7 Chord');
+soundsc(soundMin7ChordJust,constants.fs);
+%pause(chord_pause)
+disp('Playing the Equal Tempered Min7 Chord');
+soundsc(soundMin7ChordEqual,constants.fs);
+%pause(chord_pause)
+fprintf('\n');
+
+
+%% Question 4 - plots
+
+% determine fundamental frequency A4 = 440 Hz
+seconds = 1/440;
+one_wavelength_samples = floor(constants.fs*seconds);
+
+
+figure(1)
+subplot(2,2,1)
+plot((1:one_wavelength_samples)/constants.fs,soundMajorChordJust(1:one_wavelength_samples));
+title('Major Chord Just Temperament: 1 wavelength')
+xlabel('time [s]')
+ylabel('x[t]')
+
+subplot(2,2,2)
+plot((1:one_wavelength_samples)/constants.fs,soundMajorChordEqual(1:one_wavelength_samples));
+title('Major Chord Equal Temperament: 1 wavelength')
+xlabel('time [s]')
+ylabel('x[t]')
+
+subplot(2,2,3)
+plot((1:10*one_wavelength_samples)/constants.fs,soundMajorChordJust(1:10*one_wavelength_samples));
+title('Major Chord Just Temperament: 10 wavelengths')
+xlabel('time [s]')
+ylabel('x[t]')
+
+subplot(2,2,4)
+plot((1:10*one_wavelength_samples)/constants.fs,soundMajorChordEqual(1:10*one_wavelength_samples));
+title('Major Chord Equal Temperament: 10 wavelengths')
+xlabel('time [s]')
+ylabel('x[t]')
+
+
+figure(2)
+subplot(2,2,1)
+plot((1:one_wavelength_samples)/constants.fs,soundMinorChordJust(1:one_wavelength_samples));
+title('Minor Chord Just Temperament: 1 wavelength')
+xlabel('time [s]')
+ylabel('x[t]')
+
+subplot(2,2,2)
+plot((1:one_wavelength_samples)/constants.fs,soundMinorChordEqual(1:one_wavelength_samples));
+title('Minor Chord Equal Temperament: 1 wavelength')
+xlabel('time [s]')
+ylabel('x[t]')
+
+subplot(2,2,3)
+plot((1:10*one_wavelength_samples)/constants.fs,soundMinorChordJust(1:10*one_wavelength_samples));
+title('Minor Chord Just Temperament: 10 wavelengths')
+xlabel('time [s]')
+ylabel('x[t]')
+
+subplot(2,2,4)
+plot((1:10*one_wavelength_samples)/constants.fs,soundMinorChordEqual(1:10*one_wavelength_samples));
+title('Minor Chord Equal Temperament: 10 wavelengths')
+xlabel('time [s]')
+ylabel('x[t]')
+
+% (d.) I cannot see a difference in the single wavelength plots, but the
+% tens of wavelengths plots show a difference in waveform for both the
+% major and minor comparisons
+
+
+%% Question 5 - discussion
+
+% (a.) I cannot hear any difference between the just and equal tempered
+% major scales. I believe this is because the frequencies are so close that 
+% the small difference in frequency that I cannot hear. However, when I
+% play the scales simultaneously by calling soundsc without a pause, the
+% beats that occur on particular notes reveal that there are differences in
+% frequency.
+
+% (b.) I cannot tell which sounds better, but I would guess that the just
+% tempered scale would sound better since it is based on integer ratios
+
+% (c.) Likewise, I cannot hear any difference between the just and equal
+% tempered minor scales. Again, the difference is audible when calling
+% soundsc without a pause
+
+% (d.) Also cannot tell which sounds better, but again I would guess that
+% the just tempered scale would sound better.
+
+% (e.) The just tempered major chord does not have such pronounced beats as
+% the equal tempered major chord does when played. 
+
+% (f.) The just tempered major chord sounds better due to less pronounced
+% beat frequencies.
+
+% (g.) I cannot hear any difference between the just and equal tempered
+% major chords. 
+
+% (h.) My headphones are at school, I feel like I would have been able to
+% tell the difference between the just and equal tempered scales and chords
+% if I could hear it through something other than laptop speakers.
+##### SOURCE END #####
+--></body></html>
