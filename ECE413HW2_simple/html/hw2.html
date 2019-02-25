@@ -1,0 +1,895 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>hw2</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-02-25"><meta name="DC.source" content="hw2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Setup</a></li><li><a href="#3">Constants</a></li><li><a href="#4">Questions 1--4 - samples</a></li><li><a href="#5">Question 5  - chords</a></li><li><a href="#6">Question 6  - discussion</a></li><li><a href="#7">Appendix I  - function declarations</a></li></ul></div><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">% John Tronolone</span>
+<span class="comment">% ECE-413 Music and Engineering</span>
+<span class="comment">% HW2 script Feb 26, 2019</span>
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+</pre><h2 id="2">Setup</h2><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+close <span class="string">all</span>
+clear <span class="string">functions</span>
+clear <span class="string">variables</span>
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+</pre><h2 id="3">Constants</h2><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+constants.fs=44100;                     <span class="comment">% Sampling rate in samples per second</span>
+constants.durationScale=.5;             <span class="comment">% Duration of notes in a scale</span>
+constants.durationChord=4;              <span class="comment">% Duration of chords</span>
+STDOUT=1;                               <span class="comment">% Define the standard output stream</span>
+STDERR=2;                               <span class="comment">% Define the standard error stream</span>
+
+notes{1}.note=<span class="string">'C4'</span>;
+notes{1}.start=0;
+notes{1}.duration=constants.durationChord*constants.fs;
+notes{1}.velocity=1;
+notes{2}.note=<span class="string">'E4'</span>;
+notes{2}.start=0;
+notes{2}.duration=constants.durationChord*constants.fs;
+notes{2}.velocity=1;
+notes{3}.note=<span class="string">'G4'</span>;
+notes{3}.start=0;
+notes{3}.duration=constants.durationChord*constants.fs;
+notes{3}.velocity=1;
+
+instrument.temperament=<span class="string">'Equal'</span>;
+instrument.sound=<span class="string">'Additive'</span>;
+instrument.totalTime=length(notes);
+
+<span class="comment">% for just-tempered chords, use the root note and mode to generate</span>
+<span class="comment">% frequencies rather than a sequence of note names.</span>
+instrument.mode = <span class="string">'root note'</span>;<span class="comment">% 'Major';</span>
+
+synthTypes={<span class="string">'Additive'</span>,<span class="string">'Subtractive'</span>,<span class="string">'FM'</span>,<span class="string">'Waveshaper'</span>};
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+</pre><h2 id="4">Questions 1--4 - samples</h2><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="keyword">for</span> cntSynth=1:length(synthTypes)
+    instrument.sound=synthTypes{cntSynth};
+    <span class="comment">%for note = 1:length(notes)</span>
+        [soundSample]=create_sound(instrument, notes, constants);
+
+
+        fprintf(STDOUT,<span class="string">'For the %s synthesis type...\n'</span>,synthTypes{cntSynth})
+
+        fprintf(STDOUT,<span class="string">'Playing the Sample Note'</span>);
+        soundsc(soundSample,constants.fs);
+        fprintf(<span class="string">'\n'</span>);
+        pause(constants.durationChord*length(notes))
+    <span class="comment">%end</span>
+
+<span class="keyword">end</span> <span class="comment">% for cntSynth;</span>
+
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+</pre><h2 id="5">Question 5  - chords</h2><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="keyword">for</span> cntSynth=2:2<span class="comment">%1:length(synthTypes)</span>
+    <span class="comment">% major chords</span>
+    instrument.mode = <span class="string">'Major'</span>;
+    instrument.sound=synthTypes{cntSynth};
+    [soundMajorChordJust]=create_sound(instrument,notes,constants);
+    instrument.temperament=<span class="string">'Equal'</span>;
+    [soundMajorChordEqual]=create_sound(instrument,notes,constants);
+
+    <span class="comment">% minor chords</span>
+    notes{2}.note=<span class="string">'Eb4'</span>;
+    instrument.mode = <span class="string">'Minor'</span>;
+    [soundMinorChordEqual]=create_sound(instrument,notes,constants);
+    instrument.temperament=<span class="string">'Just'</span>;
+    [soundMinorChordJust]=create_sound(instrument,notes,constants);
+    notes{2}.note=<span class="string">'E4'</span>;
+
+    fprintf(STDOUT,<span class="string">'For the %s synthesis type...\n'</span>,synthTypes{cntSynth})
+
+    disp(<span class="string">'Playing the Just Tempered Major Chord'</span>);
+    soundsc(soundMajorChordJust,constants.fs);
+        pause(constants.durationChord*length(notes))
+
+    disp(<span class="string">'Playing the Equal Tempered Major Chord'</span>);
+    soundsc(soundMajorChordEqual,constants.fs);
+        pause(constants.durationChord*length(notes))
+
+    disp(<span class="string">'Playing the Just Tempered Minor Chord'</span>);
+    soundsc(soundMinorChordJust,constants.fs);
+        pause(constants.durationChord*length(notes))
+
+    disp(<span class="string">'Playing the Equal Tempered Minor Chord'</span>);
+    soundsc(soundMinorChordEqual,constants.fs);
+        pause(constants.durationChord*length(notes))
+
+    fprintf(<span class="string">'\n'</span>);
+
+<span class="keyword">end</span> <span class="comment">% for cntSynth;</span>
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+</pre><h2 id="6">Question 6  - discussion</h2><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+<span class="comment">% (i) additive (bell)</span>
+
+<span class="comment">% (a) barely, in the beginning of the equal tempered major chord, more beat</span>
+<span class="comment">% frequencies can be immediately heard</span>
+
+<span class="comment">% (b) they both have so many beat frequencies that it's hard to tell which</span>
+<span class="comment">% sounds better, but i would say the just tempered major chord sounds</span>
+<span class="comment">% better</span>
+
+<span class="comment">% (c) barely, same as the major chord, in the beginning of the equal</span>
+<span class="comment">% tempered minor chord, more beat frequencies can be immediately heard</span>
+
+<span class="comment">% (d) I would say the just tempered minor chord sounds slightly better</span>
+
+
+<span class="comment">% (ii) squarewave (subtradctive)</span>
+
+<span class="comment">% (a) yes</span>
+
+<span class="comment">% (b) The equal tempered major chord sounds softer although there are more</span>
+<span class="comment">% beat frequencies present</span>
+
+<span class="comment">% (c) yes</span>
+
+<span class="comment">% (d) again, the equal tempered minot chord sounds softer although there</span>
+<span class="comment">% are more beat frequencies present</span>
+
+
+<span class="comment">% (iii) brass-like (FM synthesis)</span>
+
+<span class="comment">% (a) yes</span>
+
+<span class="comment">% (b) The just tempered major chord sounds better because it sounds fuller</span>
+<span class="comment">% and less warbled compared to the equal tempered</span>
+
+<span class="comment">% (c) barely</span>
+
+<span class="comment">% (d) The just tempered minor chord sounds slightly fuller</span>
+
+
+<span class="comment">% (iv) waveshaper</span>
+
+<span class="comment">% (a) yes</span>
+
+<span class="comment">% (b) The just tempered sounds better because it doesn't have as much eerie</span>
+<span class="comment">% sounding beat freqeuncies</span>
+
+<span class="comment">% (c) yes</span>
+
+<span class="comment">% (d) The equal tempered minor chord sounds better because for some reason</span>
+<span class="comment">% the just tempered minor chord sounds too harsh (like there's some sort of</span>
+<span class="comment">% machine noise, but the effect is less with the equal tempered chord)</span>
+
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+</pre><h2 id="7">Appendix I  - function declarations</h2><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="keyword">function</span> sound = create_sound(instrument,notes,constants)
+
+    <span class="comment">% Define A0 -&gt; C8 frequencies from wikipedia frequencies</span>
+
+    <span class="comment">% A0 to B0</span>
+    freqs0 = [27.50000 29.13524 30.86771];
+
+    <span class="comment">% C1 to B1</span>
+    freqs1 = [32.70320 34.64783 36.70810 38.89087 41.20344 43.65353 46.24930 48.99943 51.91309 55.00000 58.27047 61.73541];
+
+    just_ratios = [1; 16/15; 9/8; 6/5; 5/4; 4/3; 25/18; 3/2; 8/5; 5/3; 7/4; 15/8; 2];
+
+    equal_ratios = [1; 2^(1/12); 2^(2/12); 2^(3/12); 2^(4/12); 2^(5/12); 2^(6/12); 2^(7/12); 2^(8/12); 2^(9/12); 2^(10/12); 2^(11/12); 2];
+
+    <span class="comment">% select chord notes</span>
+    <span class="keyword">switch</span> instrument.mode
+        <span class="keyword">case</span> {<span class="string">'Major'</span>, <span class="string">'major'</span>}
+            ratio_idx = [1, 5, 8];
+        <span class="keyword">case</span> {<span class="string">'Minor'</span>, <span class="string">'minor'</span>}
+            ratio_idx = [1, 4, 8];
+        <span class="keyword">case</span> {<span class="string">'Root Note'</span>, <span class="string">'root note'</span>, <span class="string">'Root note'</span>, <span class="string">'root_note'</span>, <span class="string">'Root_note'</span>}
+            ratio_idx = 1;
+        <span class="keyword">otherwise</span>
+            error(<span class="string">'Accepted chord modes: major, minor, root_note'</span>)
+    <span class="keyword">end</span>
+
+    <span class="comment">% select temperament</span>
+    <span class="keyword">switch</span> instrument.temperament
+        <span class="keyword">case</span> {<span class="string">'just'</span>,<span class="string">'Just'</span>}
+            ratios = just_ratios(ratio_idx);
+
+        <span class="keyword">case</span> {<span class="string">'equal'</span>,<span class="string">'Equal'</span>}
+            ratios = equal_ratios(ratio_idx);
+
+        <span class="keyword">otherwise</span>
+            error(<span class="string">'Accepted temperaments: just, equal'</span>)
+    <span class="keyword">end</span>
+
+    <span class="comment">% initialize matrix for output</span>
+    sound_mat = zeros(length(notes), notes{1}.duration);
+
+    <span class="comment">% calculate timbre for each note</span>
+    <span class="keyword">for</span> i=1:length(notes)
+
+        root = notes{i}.note;
+
+        <span class="comment">% determine fundamental frequency from note argument</span>
+        <span class="keyword">switch</span> length(root)
+            <span class="keyword">case</span>{2}  <span class="comment">% non-accidental scales</span>
+                <span class="keyword">switch</span>(root(1))
+                    <span class="keyword">case</span>{<span class="string">'C'</span>}
+                        fundFreq_toMult = freqs1(1);
+                    <span class="keyword">case</span>{<span class="string">'D'</span>}
+                        fundFreq_toMult = freqs1(3);
+                    <span class="keyword">case</span>{<span class="string">'E'</span>}
+                        fundFreq_toMult = freqs1(5);
+                    <span class="keyword">case</span>{<span class="string">'F'</span>}
+                        fundFreq_toMult = freqs1(6);
+                    <span class="keyword">case</span>{<span class="string">'G'</span>}
+                        fundFreq_toMult = freqs1(8);
+                    <span class="keyword">case</span>{<span class="string">'A'</span>}
+                        fundFreq_toMult = freqs1(10);
+                    <span class="keyword">case</span>{<span class="string">'B'</span>}
+                        fundFreq_toMult = freqs1(12);
+                    <span class="keyword">otherwise</span>
+                        error(<span class="string">'Accepted roots: A0, A#0/Bb0, ..., C8'</span>)
+                <span class="keyword">end</span>
+
+            <span class="keyword">case</span>{3} <span class="comment">% must have specified sharp/flat key</span>
+                <span class="keyword">switch</span> root(2)
+                    <span class="keyword">case</span>{<span class="string">'b'</span>}
+                        <span class="keyword">switch</span> root(1)
+                            <span class="keyword">case</span>{<span class="string">'D'</span>}
+                                fundFreq_toMult = freqs1(2);
+                            <span class="keyword">case</span>{<span class="string">'E'</span>}
+                                fundFreq_toMult = freqs1(4);
+                            <span class="keyword">case</span>{<span class="string">'G'</span>}
+                                fundFreq_toMult = freqs1(7);
+                            <span class="keyword">case</span>{<span class="string">'A'</span>}
+                                fundFreq_toMult = freqs1(9);
+                            <span class="keyword">case</span>{<span class="string">'B'</span>}
+                                fundFreq_toMult = freqs1(11);
+                            <span class="keyword">otherwise</span>
+                            error(<span class="string">'Accepted roots: A0, A#0/Bb0, ..., C8'</span>)
+                        <span class="keyword">end</span>
+
+                    <span class="keyword">case</span>{<span class="string">'#'</span>}
+                        <span class="keyword">switch</span> root(1)
+                            <span class="keyword">case</span>{<span class="string">'C'</span>}
+                                fundFreq_toMult = freqs1(2);
+                            <span class="keyword">case</span>{<span class="string">'D'</span>}
+                                fundFreq_toMult = freqs1(4);
+                            <span class="keyword">case</span>{<span class="string">'F'</span>}
+                                fundFreq_toMult = freqs1(7);
+                            <span class="keyword">case</span>{<span class="string">'G'</span>}
+                                fundFreq_toMult = freqs1(9);
+                            <span class="keyword">case</span>{<span class="string">'A'</span>}
+                                fundFreq_toMult = freqs1(11);
+                            <span class="keyword">otherwise</span>
+                            error(<span class="string">'Accepted roots: A0, A#0/Bb0, ..., C8'</span>)
+                        <span class="keyword">end</span>
+
+                    <span class="keyword">otherwise</span>
+                        error(<span class="string">'Accepted roots: A0, A#0/Bb0, ..., C8'</span>)
+
+                <span class="keyword">end</span>
+
+            <span class="keyword">otherwise</span>
+                error(<span class="string">'Accepted roots: A0, A#0/Bb0, ..., C8'</span>)
+
+        <span class="keyword">end</span>
+
+        <span class="keyword">if</span> root(end) == <span class="string">'0'</span>
+            fundFreq = fundFreq_toMult/2;
+        <span class="keyword">else</span>
+            fundFreq = fundFreq_toMult*(2.^(str2double(root(end))-1));
+
+        <span class="keyword">end</span>
+
+        chord_freqs = fundFreq*ratios;
+
+        <span class="comment">% time vector</span>
+        t = (1:notes{i}.duration)/constants.fs;
+
+        chord_mat = zeros(length(chord_freqs), notes{i}.duration);
+
+        <span class="comment">% synthesize timbre for each note in the chord</span>
+        <span class="keyword">for</span> k = 1:length(chord_freqs)
+
+            <span class="keyword">switch</span>(instrument.sound)
+                <span class="keyword">case</span>{<span class="string">'Additive'</span>}
+
+                    <span class="comment">% a.) create bell from figure 4.28</span>
+                    amplitudes = [1, 1.67, 1, 1.8, 2.67, 1.67, 1.33, 1.33, 1, 1.33];
+                    durations = [1, .9, .65, .55, .325, .35, .25, .2, .15, .1, .075];
+                    freqmults = [0.56 0.56 0.92 0.92 1.19 1.7 2 2.74 3 3.76 4.07];
+                    freqadds = [0 1 0 1.7 0 0 0 0 0 0 0];
+
+                    <span class="comment">% initialize matrix for each timbre frequency</span>
+                    timbre_mat = zeros(length(amplitudes), notes{i}.duration);
+
+                    <span class="keyword">for</span> j=1:length(amplitudes)
+                        nsamp = floor(notes{i}.duration*durations(j));
+                        timbre_mat(j,1:nsamp) = (exp(-t(1:nsamp)/durations(j))).*amplitudes(j).*sin(2*pi*(chord_freqs(k)*freqmults(j)+freqadds(j))*t(1:nsamp));
+                    <span class="keyword">end</span>
+
+                    <span class="comment">% sum timbre and store this note of the chord in a</span>
+                    <span class="comment">% matrix</span>
+                    chord_mat(k,:) = sum(timbre_mat, 1);
+
+
+                <span class="keyword">case</span>{<span class="string">'Subtractive'</span>}
+
+                    <span class="comment">% generate square wave</span>
+                    squarewave = square(2*pi*chord_freqs(k)*t);
+
+                    <span class="comment">% initial cutoff frequency for filter</span>
+                    fc_init = 10000;
+                    <span class="comment">% final cutoff frequency for filter</span>
+                    fc_final = 500;
+
+                    passband_width = 0.1;
+
+                    <span class="comment">% vector of decreasing cutoff frequency values</span>
+                    fc = linspace(fc_init, fc_final, notes{i}.duration);
+
+                    <span class="comment">% filter coefficients (update for each sample)</span>
+                    envelope = 2*sin((pi*fc(1))/constants.fs);
+
+                    <span class="comment">% intialize state varialbes</span>
+                    feedback=zeros(size(squarewave));
+                    output=zeros(size(squarewave));
+
+                    <span class="comment">% first sample</span>
+                    feedback(1) = squarewave(1);
+                    output(1) = envelope*feedback(1);
+
+                    <span class="comment">% difference equation</span>
+                    <span class="keyword">for</span> j=2:length(squarewave)
+
+                        feedback(j) = squarewave(j) - passband_width*output(j-1);
+                        output(j) = envelope*feedback(j) + output(j-1);
+
+                        envelope = sin((2*pi*fc(j))/notes{i}.duration);
+                    <span class="keyword">end</span>
+
+                    <span class="comment">% normalize</span>
+                    max_output = max(abs(output));
+                    chord_mat(k,:) = output/max_output;
+
+                <span class="keyword">case</span>{<span class="string">'FM'</span>}
+
+                    <span class="comment">% initialize vector for frequency modulation envelope</span>
+                    freqmod = zeros(1, notes{i}.duration);
+
+                    <span class="comment">% piece-wise define function for brass-like timbre</span>
+                    <span class="comment">% based on Jerse Figure 5.9 (d), with some modification</span>
+                    <span class="comment">% to make it sound better</span>
+                    freqmod(1:floor(notes{i}.duration)/3) = 2\t(1:floor(notes{i}.duration)/3);
+                    freqmod(floor(notes{i}.duration/3+1:floor(notes{i}.duration*5/6))) = 12/18-t(1:floor(notes{i}.duration)/2)/20;
+                    freqmod(floor(notes{i}.duration)*5/6+1:end) = 10.25/18-(t(1:floor(notes{i}.duration)/6))*2;
+                    freqmod(freqmod &lt; 0) = 0;
+
+                    <span class="comment">% evaluate and store this note of the chord in a matrix</span>
+                    chord_mat(k,:) = freqmod.*sin(2*pi*chord_freqs(k)*t+freqmod.*sin(2*pi*chord_freqs(k)*t));
+
+
+                <span class="keyword">case</span>{<span class="string">'Waveshaper'</span>}
+
+                    <span class="comment">% sinewave at note frequency</span>
+                    sinewave = sin(2*pi*chord_freqs(k)*t);
+
+                    <span class="comment">% Evaluate chebyshev first kind polys</span>
+                    sinewave_mat(1,:) = ones(1, notes{i}.duration);
+                    sinewave_mat(2,:) = sinewave;
+                    sinewave_mat(3,:) = 2*sinewave.^2 + 1;
+                    sinewave_mat(4,:) = 4*sinewave.^3 - 3*sinewave;
+                    sinewave_mat(5,:) = 8*sinewave.^4 - 8*sinewave.^2 + 1;
+                    sinewave_mat(6,:) = 16*sinewave.^5 - 20*sinewave.^3 + 5*sinewave;
+                    sinewave_mat(7,:) = 32*sinewave.^6 - 48*sinewave.^4 + 18*sinewave.^2 - 1;
+
+                    <span class="comment">% sum chevyshev polys and store this note of the chord</span>
+                    <span class="comment">% in a matrix</span>
+                    chord_mat(k,:) = sum(sinewave_mat, 1);
+
+
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+
+        sound_mat(i, :) = sum(chord_mat, 1)/length(chord_freqs);
+
+        remove_pop = (1:1000)/147;
+
+        sound_mat(i, 1:1000) = (1-exp(-remove_pop)).*sound_mat(i, 1:1000);
+        sound_mat(i, end-1000:end-1) = fliplr((1-exp(-remove_pop))).*sound_mat(i, end-1000:end-1);
+        sound_mat(i, end) = 0;
+
+    <span class="keyword">end</span>
+
+    <span class="comment">% reshape as single time vector</span>
+    sound = reshape(sound_mat', [], 1);
+
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">For the Additive synthesis type...
+Playing the Sample Note
+For the Subtractive synthesis type...
+Playing the Sample Note
+For the FM synthesis type...
+Playing the Sample Note
+For the Waveshaper synthesis type...
+Playing the Sample Note
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% John Tronolone
+% ECE-413 Music and Engineering
+% HW2 script Feb 26, 2019
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Setup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+close all
+clear functions
+clear variables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Constants
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+constants.fs=44100;                     % Sampling rate in samples per second
+constants.durationScale=.5;             % Duration of notes in a scale
+constants.durationChord=4;              % Duration of chords
+STDOUT=1;                               % Define the standard output stream
+STDERR=2;                               % Define the standard error stream
+
+notes{1}.note='C4';
+notes{1}.start=0;
+notes{1}.duration=constants.durationChord*constants.fs;
+notes{1}.velocity=1;
+notes{2}.note='E4';
+notes{2}.start=0;
+notes{2}.duration=constants.durationChord*constants.fs;
+notes{2}.velocity=1;
+notes{3}.note='G4';
+notes{3}.start=0;
+notes{3}.duration=constants.durationChord*constants.fs;
+notes{3}.velocity=1;
+
+instrument.temperament='Equal';
+instrument.sound='Additive';
+instrument.totalTime=length(notes);
+
+% for just-tempered chords, use the root note and mode to generate
+% frequencies rather than a sequence of note names.
+instrument.mode = 'root note';% 'Major';
+
+synthTypes={'Additive','Subtractive','FM','Waveshaper'};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Questions 1REPLACE_WITH_DASH_DASH4 - samples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+for cntSynth=1:length(synthTypes)
+    instrument.sound=synthTypes{cntSynth};
+    %for note = 1:length(notes)
+        [soundSample]=create_sound(instrument, notes, constants);
+    
+    
+        fprintf(STDOUT,'For the %s synthesis type...\n',synthTypes{cntSynth})
+    
+        fprintf(STDOUT,'Playing the Sample Note');
+        soundsc(soundSample,constants.fs);
+        fprintf('\n');
+        pause(constants.durationChord*length(notes))
+    %end
+    
+end % for cntSynth;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Question 5  - chords
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+for cntSynth=2:2%1:length(synthTypes)
+    % major chords
+    instrument.mode = 'Major';
+    instrument.sound=synthTypes{cntSynth};
+    [soundMajorChordJust]=create_sound(instrument,notes,constants);
+    instrument.temperament='Equal';
+    [soundMajorChordEqual]=create_sound(instrument,notes,constants);
+    
+    % minor chords
+    notes{2}.note='Eb4';
+    instrument.mode = 'Minor';
+    [soundMinorChordEqual]=create_sound(instrument,notes,constants);
+    instrument.temperament='Just';
+    [soundMinorChordJust]=create_sound(instrument,notes,constants);
+    notes{2}.note='E4';
+    
+    fprintf(STDOUT,'For the %s synthesis type...\n',synthTypes{cntSynth})
+    
+    disp('Playing the Just Tempered Major Chord');
+    soundsc(soundMajorChordJust,constants.fs);
+        pause(constants.durationChord*length(notes))
+        
+    disp('Playing the Equal Tempered Major Chord');
+    soundsc(soundMajorChordEqual,constants.fs);
+        pause(constants.durationChord*length(notes))
+
+    disp('Playing the Just Tempered Minor Chord');
+    soundsc(soundMinorChordJust,constants.fs);
+        pause(constants.durationChord*length(notes))
+
+    disp('Playing the Equal Tempered Minor Chord');
+    soundsc(soundMinorChordEqual,constants.fs);
+        pause(constants.durationChord*length(notes))
+
+    fprintf('\n');
+    
+end % for cntSynth;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Question 6  - discussion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% (i) additive (bell)
+
+% (a) barely, in the beginning of the equal tempered major chord, more beat
+% frequencies can be immediately heard
+
+% (b) they both have so many beat frequencies that it's hard to tell which
+% sounds better, but i would say the just tempered major chord sounds
+% better
+
+% (c) barely, same as the major chord, in the beginning of the equal 
+% tempered minor chord, more beat frequencies can be immediately heard
+
+% (d) I would say the just tempered minor chord sounds slightly better
+
+
+% (ii) squarewave (subtradctive)
+
+% (a) yes
+
+% (b) The equal tempered major chord sounds softer although there are more
+% beat frequencies present
+
+% (c) yes
+
+% (d) again, the equal tempered minot chord sounds softer although there 
+% are more beat frequencies present
+
+
+% (iii) brass-like (FM synthesis)
+
+% (a) yes
+
+% (b) The just tempered major chord sounds better because it sounds fuller
+% and less warbled compared to the equal tempered
+
+% (c) barely
+
+% (d) The just tempered minor chord sounds slightly fuller
+
+
+% (iv) waveshaper
+
+% (a) yes
+
+% (b) The just tempered sounds better because it doesn't have as much eerie
+% sounding beat freqeuncies
+
+% (c) yes
+
+% (d) The equal tempered minor chord sounds better because for some reason
+% the just tempered minor chord sounds too harsh (like there's some sort of
+% machine noise, but the effect is less with the equal tempered chord)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Appendix I  - function declarations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function sound = create_sound(instrument,notes,constants)
+    
+    % Define A0 -> C8 frequencies from wikipedia frequencies
+
+    % A0 to B0
+    freqs0 = [27.50000 29.13524 30.86771];
+
+    % C1 to B1
+    freqs1 = [32.70320 34.64783 36.70810 38.89087 41.20344 43.65353 46.24930 48.99943 51.91309 55.00000 58.27047 61.73541];
+
+    just_ratios = [1; 16/15; 9/8; 6/5; 5/4; 4/3; 25/18; 3/2; 8/5; 5/3; 7/4; 15/8; 2];
+
+    equal_ratios = [1; 2^(1/12); 2^(2/12); 2^(3/12); 2^(4/12); 2^(5/12); 2^(6/12); 2^(7/12); 2^(8/12); 2^(9/12); 2^(10/12); 2^(11/12); 2];
+    
+    % select chord notes
+    switch instrument.mode
+        case {'Major', 'major'}
+            ratio_idx = [1, 5, 8];
+        case {'Minor', 'minor'}
+            ratio_idx = [1, 4, 8];
+        case {'Root Note', 'root note', 'Root note', 'root_note', 'Root_note'}
+            ratio_idx = 1;
+        otherwise
+            error('Accepted chord modes: major, minor, root_note')
+    end
+            
+    % select temperament
+    switch instrument.temperament
+        case {'just','Just'}
+            ratios = just_ratios(ratio_idx);
+        
+        case {'equal','Equal'}
+            ratios = equal_ratios(ratio_idx);
+        
+        otherwise
+            error('Accepted temperaments: just, equal')
+    end
+   
+    % initialize matrix for output
+    sound_mat = zeros(length(notes), notes{1}.duration);
+    
+    % calculate timbre for each note
+    for i=1:length(notes)
+        
+        root = notes{i}.note;
+        
+        % determine fundamental frequency from note argument
+        switch length(root)
+            case{2}  % non-accidental scales
+                switch(root(1))
+                    case{'C'}
+                        fundFreq_toMult = freqs1(1);
+                    case{'D'}
+                        fundFreq_toMult = freqs1(3);
+                    case{'E'}
+                        fundFreq_toMult = freqs1(5);
+                    case{'F'}
+                        fundFreq_toMult = freqs1(6);
+                    case{'G'}
+                        fundFreq_toMult = freqs1(8);
+                    case{'A'}
+                        fundFreq_toMult = freqs1(10);
+                    case{'B'}
+                        fundFreq_toMult = freqs1(12);
+                    otherwise
+                        error('Accepted roots: A0, A#0/Bb0, ..., C8')
+                end
+
+            case{3} % must have specified sharp/flat key
+                switch root(2)
+                    case{'b'}
+                        switch root(1)
+                            case{'D'}
+                                fundFreq_toMult = freqs1(2);
+                            case{'E'}
+                                fundFreq_toMult = freqs1(4);
+                            case{'G'}
+                                fundFreq_toMult = freqs1(7);
+                            case{'A'}
+                                fundFreq_toMult = freqs1(9);
+                            case{'B'}
+                                fundFreq_toMult = freqs1(11);
+                            otherwise
+                            error('Accepted roots: A0, A#0/Bb0, ..., C8')
+                        end
+
+                    case{'#'}
+                        switch root(1)
+                            case{'C'}
+                                fundFreq_toMult = freqs1(2);
+                            case{'D'}
+                                fundFreq_toMult = freqs1(4);
+                            case{'F'}
+                                fundFreq_toMult = freqs1(7);
+                            case{'G'}
+                                fundFreq_toMult = freqs1(9);
+                            case{'A'}
+                                fundFreq_toMult = freqs1(11);
+                            otherwise
+                            error('Accepted roots: A0, A#0/Bb0, ..., C8')
+                        end
+
+                    otherwise
+                        error('Accepted roots: A0, A#0/Bb0, ..., C8')
+
+                end
+
+            otherwise
+                error('Accepted roots: A0, A#0/Bb0, ..., C8')
+
+        end
+
+        if root(end) == '0'
+            fundFreq = fundFreq_toMult/2;
+        else
+            fundFreq = fundFreq_toMult*(2.^(str2double(root(end))-1));
+       
+        end
+        
+        chord_freqs = fundFreq*ratios;
+        
+        % time vector
+        t = (1:notes{i}.duration)/constants.fs;
+        
+        chord_mat = zeros(length(chord_freqs), notes{i}.duration);
+        
+        % synthesize timbre for each note in the chord
+        for k = 1:length(chord_freqs)
+                    
+            switch(instrument.sound)
+                case{'Additive'}
+                    
+                    % a.) create bell from figure 4.28
+                    amplitudes = [1, 1.67, 1, 1.8, 2.67, 1.67, 1.33, 1.33, 1, 1.33];
+                    durations = [1, .9, .65, .55, .325, .35, .25, .2, .15, .1, .075];
+                    freqmults = [0.56 0.56 0.92 0.92 1.19 1.7 2 2.74 3 3.76 4.07];
+                    freqadds = [0 1 0 1.7 0 0 0 0 0 0 0];
+
+                    % initialize matrix for each timbre frequency
+                    timbre_mat = zeros(length(amplitudes), notes{i}.duration);
+
+                    for j=1:length(amplitudes)
+                        nsamp = floor(notes{i}.duration*durations(j));
+                        timbre_mat(j,1:nsamp) = (exp(-t(1:nsamp)/durations(j))).*amplitudes(j).*sin(2*pi*(chord_freqs(k)*freqmults(j)+freqadds(j))*t(1:nsamp));
+                    end
+                    
+                    % sum timbre and store this note of the chord in a
+                    % matrix
+                    chord_mat(k,:) = sum(timbre_mat, 1);
+
+                    
+                case{'Subtractive'}
+
+                    % generate square wave
+                    squarewave = square(2*pi*chord_freqs(k)*t);
+
+                    % initial cutoff frequency for filter
+                    fc_init = 10000;
+                    % final cutoff frequency for filter
+                    fc_final = 500;
+                    
+                    passband_width = 0.1;
+                    
+                    % vector of decreasing cutoff frequency values
+                    fc = linspace(fc_init, fc_final, notes{i}.duration);
+                    
+                    % filter coefficients (update for each sample)
+                    envelope = 2*sin((pi*fc(1))/constants.fs);
+
+                    % intialize state varialbes
+                    feedback=zeros(size(squarewave));
+                    output=zeros(size(squarewave));
+
+                    % first sample
+                    feedback(1) = squarewave(1);
+                    output(1) = envelope*feedback(1);
+
+                    % difference equation
+                    for j=2:length(squarewave)
+                        
+                        feedback(j) = squarewave(j) - passband_width*output(j-1);
+                        output(j) = envelope*feedback(j) + output(j-1);
+                        
+                        envelope = sin((2*pi*fc(j))/notes{i}.duration);
+                    end
+
+                    % normalize
+                    max_output = max(abs(output));
+                    chord_mat(k,:) = output/max_output;
+
+                case{'FM'}
+
+                    % initialize vector for frequency modulation envelope
+                    freqmod = zeros(1, notes{i}.duration);
+
+                    % piece-wise define function for brass-like timbre
+                    % based on Jerse Figure 5.9 (d), with some modification
+                    % to make it sound better
+                    freqmod(1:floor(notes{i}.duration)/3) = 2\t(1:floor(notes{i}.duration)/3);
+                    freqmod(floor(notes{i}.duration/3+1:floor(notes{i}.duration*5/6))) = 12/18-t(1:floor(notes{i}.duration)/2)/20;
+                    freqmod(floor(notes{i}.duration)*5/6+1:end) = 10.25/18-(t(1:floor(notes{i}.duration)/6))*2;
+                    freqmod(freqmod < 0) = 0;
+
+                    % evaluate and store this note of the chord in a matrix
+                    chord_mat(k,:) = freqmod.*sin(2*pi*chord_freqs(k)*t+freqmod.*sin(2*pi*chord_freqs(k)*t));
+
+
+                case{'Waveshaper'}
+
+                    % sinewave at note frequency
+                    sinewave = sin(2*pi*chord_freqs(k)*t);
+
+                    % Evaluate chebyshev first kind polys
+                    sinewave_mat(1,:) = ones(1, notes{i}.duration);
+                    sinewave_mat(2,:) = sinewave;
+                    sinewave_mat(3,:) = 2*sinewave.^2 + 1;
+                    sinewave_mat(4,:) = 4*sinewave.^3 - 3*sinewave;
+                    sinewave_mat(5,:) = 8*sinewave.^4 - 8*sinewave.^2 + 1;
+                    sinewave_mat(6,:) = 16*sinewave.^5 - 20*sinewave.^3 + 5*sinewave;
+                    sinewave_mat(7,:) = 32*sinewave.^6 - 48*sinewave.^4 + 18*sinewave.^2 - 1;
+
+                    % sum chevyshev polys and store this note of the chord 
+                    % in a matrix
+                    chord_mat(k,:) = sum(sinewave_mat, 1);
+                    
+                    
+            end
+        end
+        
+        sound_mat(i, :) = sum(chord_mat, 1)/length(chord_freqs);
+ 
+        remove_pop = (1:1000)/147;
+
+        sound_mat(i, 1:1000) = (1-exp(-remove_pop)).*sound_mat(i, 1:1000);
+        sound_mat(i, end-1000:end-1) = fliplr((1-exp(-remove_pop))).*sound_mat(i, end-1000:end-1);
+        sound_mat(i, end) = 0;
+
+    end
+    
+    % reshape as single time vector
+    sound = reshape(sound_mat', [], 1);
+    
+end
+
+##### SOURCE END #####
+--></body></html>
